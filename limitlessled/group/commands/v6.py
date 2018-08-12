@@ -46,7 +46,7 @@ class CommandV6(Command):
         preamble = [0x80, 0x00, 0x00, 0x00, 0x11, wb1, wb2, 0x00, sn, 0x00]
         cmd = [0x31, self.PASSWORD_BYTE1, self.PASSWORD_BYTE2,
                self._remote_style, self._cmd_1,
-               self._cmd_2, self._cmd_2, self._cmd_2, self._cmd_2]
+               self._cmd_2, 0x00, 0x00, 0x00]
         zone_selector = [self._group_number, 0x00]
         checksum = sum(cmd + zone_selector) & 0xFF
 
@@ -303,7 +303,7 @@ class CommandSetRgbwV6(CommandSetV6):
     """ Command set for RGBW led light connected to wifi bridge v6. """
 
     SUPPORTED_LED_TYPES = [RGBW]
-    REMOTE_STYLE = 0x07
+    REMOTE_STYLE = 0x08
 
     def __init__(self, group_number):
         """
@@ -317,28 +317,28 @@ class CommandSetRgbwV6(CommandSetV6):
         Build command for turning the led on.
         :return: The command.
         """
-        return self._build_command(0x03, 0x01)
+        return self._build_command(0x04, 0x01)
 
     def off(self):
         """
         Build command for turning the led off.
         :return: The command.
         """
-        return self._build_command(0x03, 0x02)
+        return self._build_command(0x04, 0x02)
 
     def night_light(self):
         """
         Build command for turning the led into night light mode.
         :return: The command.
         """
-        return self._build_command(0x03, 0x06)
+        return self._build_command(0x04, 0x05)
 
     def white(self):
         """
         Build command for turning the led into white mode.
         :return: The command.
         """
-        return self._build_command(0x03, 0x05)
+        return self._build_command(0x05, 0x64)
 
     def hue(self, hue):
         """

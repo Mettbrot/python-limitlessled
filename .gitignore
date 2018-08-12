@@ -92,3 +92,6 @@ ENV/
 
 # IntelliJ project settings
 .idea
+
+led.py
+.gitignore
